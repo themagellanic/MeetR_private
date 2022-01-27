@@ -5,18 +5,28 @@ import {Card,Form,Button} from 'react-bootstrap';
 
 export default class Request extends Component
 {
+
+    contructor(props){
+        //super(props);
+        this.state={employeeId:'',location:'',numPeople:'',food:'',beverage:''};
+    }
+    submitRequest(event){
+        alert(this.state.employeeId);
+        event.preventDefault();
+    }
+
     render(){
         return (
             <Card>
                 <Card.Header>Add a request</Card.Header>
                 <Card.Body>
-                    <Form>
+                    <Form onSubmit={this.submitRequest} id="requestFormId">
                         <Form.Group className="mb-3">
                             <Form.Label>EmployeeId</Form.Label>
                             <Form.Control placeholder="SG0314899" name="employeeId" disabled />
                         </Form.Group>
                         <Form.Group className="mb-3">
-                        
+                            
                             <Form.Label>Select preferred location</Form.Label>
                             <Form.Select enabled placeholder="Select a location" name="location">
                             <option>Montevideo, UY</option>

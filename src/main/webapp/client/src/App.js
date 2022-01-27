@@ -2,6 +2,8 @@
 
 import './App.css';
 import NavigationBar from './components/NavigationBar';
+import Register from './components/Register';
+import Login from './components/Login';
 import RequestList from './components/RequestList';
 import Request from './components/Request';
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
@@ -23,6 +25,8 @@ function App() {
               <Route exact path='/' element={<Welcome/>} />
               <Route exact path='/request' element={<Request/>} />
               <Route exact path='/showrequest' element={<RequestList/>} />
+              <Route exact path='/register' element={<Register/>} />
+              <Route exact path='/login' element={<Login/>} />
         </Routes> 
       </Container> 
     </Router>

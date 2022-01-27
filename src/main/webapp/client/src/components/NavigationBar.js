@@ -21,7 +21,12 @@ class NavigationBar extends React.Component{
                 </Link>
                 <Link to={"/showrequest"} className="nav-link">Show Request</Link>
                 </Nav>
+                <Nav className="navbar-right">
+                <Link to={"register"} className="nav-link">Register</Link>
+                <Link to={"login"} className="nav-link">Login</Link>
+                </Nav>
                 </Container>
+                
             </Navbar>
                     
                 

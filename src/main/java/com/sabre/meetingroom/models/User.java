@@ -1,53 +1,51 @@
 package com.sabre.meetingroom.models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
 
-
-
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.HashSet;
+import java.util.Set;
 
-
-@Document(collection = "user")
+@Document(collection = "users")
 public class User {
-
     @Id
-   // @Indexed(name="parag",unique=true,sparse=true)
-    private Long Id;
+    private String id;
 
     @NotBlank
-    @Size(max = 6)
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
+    @Size(max = 20)
     private String username;
 
     @NotBlank
-    @Size(max=50)
-    @Indexed(unique = true, direction = IndexDirection.DESCENDING, dropDups = true)
+    @Size(max = 50)
+    @Email
     private String email;
 
     @NotBlank
-    @Size(max=120)
+    @Size(max = 120)
     private String password;
 
+    @DBRef
+    private Set<Role> roles = new HashSet<>();
 
-
-    public User(){
-
-    }
-    public User(String username,String email,String password){
-        this.username=username;
-        this.email=email;
-        this.password=password;
-    }
-    public Long getId() {
-        return Id;
+    public User() {
     }
 
-    public void setId(Long id) {
-        this.Id = id;
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -74,6 +72,11 @@ public class User {
         this.password = password;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
 
-
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 }
