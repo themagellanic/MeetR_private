@@ -39,26 +39,24 @@ public class RequestController {
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> onSubmit(@Valid @RequestBody Request request){
         Request req = new Request();
-        req.setLocation(request.getLocation());
-        req.setNumberOfPeople(request.getNumberOfPeople());
-        req.setEmployeeId(request.getEmployeeId());
-        req.setCostCentre(request.getCostCentre());
-        req.setStatus(EStatus.PENDING_STATUS);
-
+        req.setLocation(request.getLocation());//done
+        req.setNumberOfPeople(request.getNumberOfPeople());//done
+        req.setEmployeeId(request.getEmployeeId());//left
+        req.setCostCentre(request.getCostCentre());//done
+        req.setStatus(EStatus.PENDING_STATUS);//done
+        req.setBeverage(request.getBeverage());//done
+        req.setFood(request.getFood());//done
+        req.setTime(request.getTime());//done
+        req.setDate(request.getDate());//done
         Random random = new Random();
         int t=random.nextInt(35);
 
         //String token=jwtUtils.urlToken(request.getEmployeeId());
         //EStatus status= EStatus.PENDING_STATUS;
         String token=jwtUtils.urlToken(t)+"-"+jwtUtils.uuidGeneration();
-
         req.setToken(token);
         requestRepository.save(req);
-//        Url url=new Url();
-//        url.setMappedToken(token);
-//        url.setRequestToken("12345");
-//        urlRepository.save(url);
-        return ResponseEntity.of(Optional.of(token));
+        return ResponseEntity.of(Optional.of(req));
     }
 
     @GetMapping("/{requestToken}")
@@ -98,32 +96,44 @@ public class RequestController {
 
     }
 
-    @PostMapping("/{requestToken}/{status}")
+    @PostMapping("/{requestToken}/declined")
     @PreAuthorize("hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> changeStatus(@PathVariable("requestToken") String reqToken,@PathVariable("status") String status){
-            Query query = new Query();
+    public ResponseEntity<?> changeStatus(@PathVariable("requestToken") String reqToken){
+        System.out.println("inside change status");
+        Query query = new Query();
             query.addCriteria(Criteria.where("token").is(reqToken));
-            Request req= mongoTemplate.findOne(query,Request.class);
-            //System.out.println(req);
-            if(status.equals("approved")){
-                try {
-                    req.setStatus(EStatus.APPROVED);
-                }
-                catch(Exception e){
-                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Can't be processed at the moment.");
-                }
-            }
-            else if(status.equals("declined")){
-                try {
-                    req.setStatus(EStatus.DECLINED);
-                }
-                catch(Exception e){
-                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Can't be processed at the moment.");
-                }
 
+            Request req= mongoTemplate.findOne(query,Request.class);
+
+            try {
+                req.setStatus(EStatus.DECLINED);
             }
+            catch(Exception e){
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Request Can't be processed at the moment.");
+            }
+
             requestRepository.save(req);
             return ResponseEntity.of(Optional.of(req));
+    }
+
+    @PostMapping("/edit/{token}")
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> editRequest(@Valid @RequestBody Request request,@PathVariable("token") String token){
+        try {
+            Request req = null;
+            Query query = new Query();
+            query.addCriteria(Criteria.where("token").is(token));
+            req = mongoTemplate.findOne(query, Request.class);
+            req.setCost(request.getCost());
+            req.setRoomNumber(request.getRoomNumber());
+            req.setStatus(EStatus.APPROVED);
+            requestRepository.save(req);
+
+            return ResponseEntity.of(Optional.of(req));
+        }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
+        }
+
     }
 
 

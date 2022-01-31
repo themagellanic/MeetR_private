@@ -20,13 +20,58 @@ public class Request {
         this.token = token;
     }
 
-    private String location;
-    private Date date;
-    private String costCentre;
-    private String purpose;
-    private Integer numberOfPeople;
+    private String location;//done
+    private Date date;//done
+    private String time;//done
+    private String costCentre;//done
+    private String purpose;//left
+    private Integer numberOfPeople;//done
     private Integer employeeId;
     private EStatus status;
+    private String food;
+    private String beverage;
+    private Long cost;
+    private String roomNumber;
+
+    public Long getCost() {
+        return cost;
+    }
+
+    public void setCost(Long cost) {
+        this.cost = cost;
+    }
+
+    public String getRoomNumber() {
+        return roomNumber;
+    }
+
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFood() {
+        return food;
+    }
+
+    public void setFood(String food) {
+        this.food = food;
+    }
+
+    public String getBeverage() {
+        return beverage;
+    }
+
+    public void setBeverage(String beverage) {
+        this.beverage = beverage;
+    }
 
     public String getLocation() {
         return location;
@@ -84,6 +129,14 @@ public class Request {
         this.status = status;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "Request{" +
@@ -91,11 +144,16 @@ public class Request {
                 ", token='" + token + '\'' +
                 ", location='" + location + '\'' +
                 ", date=" + date +
+                ", time=" + time +
                 ", costCentre='" + costCentre + '\'' +
                 ", purpose='" + purpose + '\'' +
                 ", numberOfPeople=" + numberOfPeople +
                 ", employeeId=" + employeeId +
                 ", status=" + status +
+                ", food='" + food + '\'' +
+                ", beverage='" + beverage + '\'' +
+                ", cost=" + cost +
+                ", roomNumber='" + roomNumber + '\'' +
                 '}';
     }
 }
