@@ -4,16 +4,16 @@ import UserService from "../services/user.service";
 import EventBus from "../common/EventBus";
 
 
-  
-  
+
+
 const BoardAdmin = () => {
   const [content, setContent] = useState([]);
 
-  
-  
+
+
   const clickMe = (data) => {
     console.log(data);
-    window.location = `http://localhost:8082/request/${data.token}`;  
+    window.location = `https://meeting-room-54lfwsc5ja-uc.a.run.app/request/${data.token}`;
   }
   useEffect(() => {
     UserService.getAdminBoard().then(
@@ -37,12 +37,12 @@ const BoardAdmin = () => {
       }
     );
   }, []);
-  
+
  // console.log({content});
 
 
 let arr;
-  return (      
+  return (
     <div>
         <table>
             <tr>
@@ -63,7 +63,7 @@ let arr;
               ))
            }
            </tbody>
-   
+
         </table>
 
     </div>

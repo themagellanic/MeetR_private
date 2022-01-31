@@ -1,8 +1,8 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const API_URL = "http://localhost:8081/api/auth/";
-const API_URL1 = "http://localhost:8081/api/request/";
+const API_URL = "https://meeting-room-54lfwsc5ja-uc.a.run.app/api/auth/";
+const API_URL1 = "https://meeting-room-54lfwsc5ja-uc.a.run.app/api/request/";
 
 
 const register = (username, email, password) => {
@@ -22,7 +22,7 @@ const token=user.accessToken;
    location,costCentre,date,time,numberOfPeople,food,beverage,employeeId
   }, {
     headers: {
-      'Authorization': `Bearer ${token}` 
+      'Authorization': `Bearer ${token}`
     }
   }).then((response) => {
     //console.log("response of submit" + response.data);

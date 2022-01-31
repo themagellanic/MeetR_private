@@ -26,9 +26,9 @@ const Edit = ({match}) => {
   const [roomNumber, setRoomNumber] = useState("");
   const [cost, setCost] = useState("");
   const [successful, setSuccessful] = useState(false);
-  const [message, setMessage] = useState(""); 
- 
- 
+  const [message, setMessage] = useState("");
+
+
 
   const onChangeRoomNumber = (e) => {
     const roomNumber = e.target.value;
@@ -51,7 +51,7 @@ const Edit = ({match}) => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.edit(roomNumber,cost,token).then(
         (response) => {
-              window.location = `http://localhost:8082/request/${response.token}`;
+              window.location = `https://meeting-room-54lfwsc5ja-uc.a.run.app/request/${response.token}`;
         },
         (error) => {
           const resMessage =
@@ -65,13 +65,13 @@ const Edit = ({match}) => {
           setSuccessful(false);
         }
       );
-      
+
     }
   };
   function room(room){
     if(room==null)
       return "Room is yet to be assigned";
-    else 
+    else
       return "Room Number is "+room;
   }
   function costShow(cost){
@@ -82,15 +82,15 @@ const Edit = ({match}) => {
   const [copied, setCopied] = useState(false);
 
   // const clickMe = () => {
-   
-    
+
+
   //   const request = JSON.parse(localStorage.getItem('request'));
   //   console.log("token= "+request.token);
 
   //   //window.location.replace(`http://localhost:8082/request/edit/${request.token}`);
   //    window.location = `http://localhost:8082/request/${request.token}`;
   // }
-  
+
   useEffect(() => {
     UserService.oneRequest(token).then(
       (response) => {
@@ -118,7 +118,7 @@ const Edit = ({match}) => {
       }
     );
   }, []);
-  
+
   function copy() {
     const el = document.createElement('input');
     el.value = window.location.href;
@@ -127,7 +127,7 @@ const Edit = ({match}) => {
     document.execCommand('copy');
     document.body.removeChild(el);
   }
-   
+
   function sendStatus(status){
     if(status=="PENDING_STATUS"){
       //setColor("#f2b10c");
@@ -140,9 +140,9 @@ const Edit = ({match}) => {
       return "Rejected";
     }
   }
-    
+
   return (
-      
+
         <div>
           <table border="1px">
             <th>http://localhost:8082/request/{con.token}</th>
@@ -163,11 +163,11 @@ const Edit = ({match}) => {
              </table> */}
 
 <table>
-             
+
              <tr>
              <th>Status <span className="dot" style={{
                backgroundColor: con.status=="PENDING_STATUS"?"#fc9803":con.status=="APPROVED"?"#32a852":"#fcba03" ,
-               
+
              }}></span>{sendStatus(con.status)}</th>
              </tr>
              <tr>
@@ -176,7 +176,7 @@ const Edit = ({match}) => {
              <tr>
                <th>Location {con.location}</th>
              </tr>
-             
+
              <tr>
                <th>Number Of People {con.numberOfPeople}</th>
              </tr>
@@ -225,7 +225,7 @@ const Edit = ({match}) => {
                 />
               </div>
 
-              
+
               <div className="form-group">
                 <button className="btn btn-success">Approve</button>
               </div>
@@ -248,7 +248,7 @@ const Edit = ({match}) => {
           <CheckButton style={{ display: "none" }} ref={checkBtn} />
         </Form>
         </div>
-        </div>       
+        </div>
         </div>
   )
 }

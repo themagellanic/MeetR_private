@@ -82,8 +82,8 @@ const Booking = (props) => {
   };
 
 
- 
- 
+
+
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -96,7 +96,7 @@ const Booking = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.Booking(location,costCentre,date,time,numberOfPeople,food,drink,employeeId).then(
         (response) => {
-              window.location = `http://localhost:8082/request/${response.token}`;
+              window.location = `https://meeting-room-54lfwsc5ja-uc.a.run.app/request/${response.token}`;
         },
         (error) => {
           const resMessage =
@@ -110,14 +110,14 @@ const Booking = (props) => {
           setSuccessful(false);
         }
       );
-      
+
     }
   };
 
   return (
     <div className="col-sm-20">
       <div className="card w-75">
-      
+
 
         <Form onSubmit={handleRegister} ref={form}>
           {!successful && (

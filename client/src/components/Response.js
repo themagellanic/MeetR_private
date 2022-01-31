@@ -6,10 +6,10 @@ import {Form,Col,Row} from "react-bootstrap";
 import axios from "axios";
 import authHeader from "../services/auth-header";
 import AuthService from "../services/auth.service";
-const API_URL1 = "http://localhost:8081/api/request/";
+const API_URL1 = "https://meeting-room-54lfwsc5ja-uc.a.run.app/api/request/";
 
 const Response = ({match}) => {
-  
+
   const token=match.params.token;
   const [color,setColor] = useState("#c4443b");
   const [con, setContent] = useState([]);
@@ -19,7 +19,7 @@ const Response = ({match}) => {
   const [declineButton,setDeclineButton]=useState(false);
   const clickMe = () => {
     //console.log("click me");
-    
+
     const request = JSON.parse(localStorage.getItem('request'));
     //console.log("token= "+request.token);
 
@@ -27,14 +27,14 @@ const Response = ({match}) => {
      window.location = `http://localhost:8082/request/edit/${request.token}`;
   }
   const clickMe2 = ()=>{
-    axios.post(API_URL1+`${token}/declined`, 
+    axios.post(API_URL1+`${token}/declined`,
       { headers: authHeader() }
      ).then((response) => {
-      window.location.replace(`http://localhost:8082/request/${token}`);
+      window.location.replace(`https://meeting-room-54lfwsc5ja-uc.a.run.app/request/${token}`);
      });
   }
-    
-  
+
+
   useEffect(() => {
     const user = AuthService.getCurrentUser();
     if (user) {
@@ -68,7 +68,7 @@ const Response = ({match}) => {
       }
     );
   }, []);
-  
+
   function copy() {
     const el = document.createElement('input');
     el.value = window.location.href;
@@ -77,7 +77,7 @@ const Response = ({match}) => {
     document.execCommand('copy');
     document.body.removeChild(el);
   }
-   
+
   function sendStatus(status){
     if(status=="PENDING_STATUS"){
       //setColor("#f2b10c");
@@ -93,7 +93,7 @@ const Response = ({match}) => {
   function room(room){
     if(room==null)
       return "Room is yet to be assigned";
-    else 
+    else
       return "Room Number is "+room;
   }
   function cost(cost){
@@ -101,8 +101,8 @@ const Response = ({match}) => {
       return "Cost is yet to be decided";
     else return "Total Cost is      "+cost;
   }
-  
-    
+
+
   return (
 
 
@@ -111,7 +111,7 @@ const Response = ({match}) => {
 {/* <Form>
   <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
     <Form.Label column sm="2">
-      
+
     </Form.Label>
     <Col sm="10">
       <Form.Control plaintext readOnly defaultValue="email@example.com" />
@@ -134,7 +134,7 @@ const Response = ({match}) => {
       <Form.Control type="password" placeholder="Password" />
     </Col>
   </Form.Group>
-  
+
 </Form> */}
 
 
@@ -144,13 +144,13 @@ const Response = ({match}) => {
             <th>http://localhost:8082/request/{con.token}</th>
             <th><button className="btn btn-primary" onClick={copy}>{!copied ? "Copy link" : "Copied!"}</button></th>
           </table>
-      
+
            <table>
-             
+
              <tr>
              <th>Status <span className="dot" style={{
                backgroundColor: con.status=="PENDING_STATUS"?"#fc9803":con.status=="APPROVED"?"#32a852":"#fcba03" ,
-               
+
              }}></span>{sendStatus(con.status)}</th>
              </tr>
              <tr>
@@ -159,7 +159,7 @@ const Response = ({match}) => {
              <tr>
                <th>Location {con.location}</th>
              </tr>
-             
+
              <tr>
                <th>Number Of People {con.numberOfPeople}</th>
              </tr>
@@ -178,16 +178,16 @@ const Response = ({match}) => {
              <tr>
                <th>{cost(con.cost)}</th>
              </tr>
-             
 
-            
+
+
              {editButton && <button className="btn btn-secondary" onClick={() => clickMe()}>Edit</button>}
              {declineButton && <button  className="btn btn-danger" onClick={()=>clickMe2()}>Decline</button>}
-           </table> 
-        </div> 
+           </table>
+        </div>
 
-      
-        
+
+
   )
 }
 
